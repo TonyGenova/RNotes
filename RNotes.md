@@ -53,4 +53,4 @@ sort(tapply(baseball.example$batting.average, baseball.example$team, max))
 ```
 
 ##### Misc Tricks
-is.na(DF$Variable) can be applied to a Logical to get a count of NAs, or !is.na to get a count of not NAs.  Taking the mean of this will get a proportion, and TRUE = 1 and False = 1.
+is.na(DF$Variable) can be applied to a Logical to get a count of NAs, or !is.na to get a count of not NAs.  Taking the mean of this will get a proportion, with TRUE = 1 and FALSE = 0.
