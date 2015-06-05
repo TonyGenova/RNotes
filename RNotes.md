@@ -47,4 +47,7 @@ Treatment   Control
 tapply(baseball.example$batting.average, baseball.example$team, max)
 Team A    Team B    Team C    Team D    Team E
 0.3784396 0.3012680 0.3488655 0.2962828 0.3858841  
+
+#note sort() can be applied to tapply to sort the results
+sort(tapply(baseball.example$batting.average, baseball.example$team, max))
 ```
