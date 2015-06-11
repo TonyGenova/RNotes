@@ -94,3 +94,8 @@ SSE = sum((ActualResults - prediction)^2)
 SST = sum((ActualResults - mean(trainingData$DependentVariable))
 RSq = 1-(SSE/SST)
 ```
+
+#####Graphic Views of Data
+To be integrated to this document.  For now, good references for ideas can be found in these sources:  
+http://personality-project.org/r/r.graphics.html  
+http://personality-project.org/r/r.short.html#graphics  
