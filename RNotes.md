@@ -31,6 +31,13 @@ Data Structures
 
 R uses Implicit Coercion - Data entered into a vector with multiple data types will default to data type that can handle all data without an error
 
+Useful Data review commands
+```R
+str(VariableName) #provides information on the structure of a vector/data frame/etc
+summary(VariableName) #provides summary information on the data contained within a vector/data frame/etc
+mean(VariableName)
+sd(VariableName)
+```
 ##### TAPPLY
 copied from http://www.r-bloggers.com/r-function-of-the-day-tapply/, with silght modifications for clarity  
 >The tapply function is useful when we need to break up a vector into groups defined by some classifying factor, compute a function on the subsets, and return the results in a convenient form. You can even specify multiple factors as the grouping variable, for example treatment and sex, or team and handedness.
@@ -54,3 +61,36 @@ sort(tapply(baseball.example$batting.average, baseball.example$team, max))
 
 ##### Misc Tricks
 is.na(DF$Variable) can be applied to a Logical to get a count of NAs, or !is.na to get a count of not NAs.  Taking the mean of this will get a proportion, with TRUE = 1 and FALSE = 0.
+
+#####Regression  
+To perform a regression calculation:  
+```R
+# Can have 1 or more independent variables
+model = lm(DependentVariable ~ IndVar1 + IndVar2, data=DataFrameName)
+#To view results of regression
+summary(model)
+#Residuals are stored in model$residuals.  Can calculate SSE with
+SSE = sum(model$residuals^2)
+```
+Notes on regression  
+* T Value is (estimate of coeff/standard error).  A larger absolute T Value indicates a more significant variable.
+* Pr >/t/ compares to the probability the true value of the coeff is actually zero.  Smaller values indicate less probability.  R uses the stars next to the variables to indicate significant varaibles.
+* Multicollinerarity is when to independent variables are highly correlated.  This can skew regression results - review independent variables for correlation, remove highly correlated variables. 
+* Remove variables from the regression one at a time, as removing one variable may cause another variable to become more significant.  Use qualitative logic as well as regression results when deciding what variables to remove. 
+
+To calculate correlation
+```R
+cor(var1, var2) #correlation between two variables
+cor(DataFrameName) #correlation between an entire data frame
+```
+To predict using the model  
+```R
+#predict new data using results from previous regression model
+prediction = predict(model, newdata=DataFrame)
+#to view prediction results
+prediction
+#to calculate SSE and R^2 of prediction
+SSE = sum((ActualResults - prediction)^2)
+SST = sum((ActualResults - mean(trainingData$DependentVariable))
+RSq = 1-(SSE/SST)
+```
