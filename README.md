@@ -1,6 +1,41 @@
 ## RNotes
 #### Notes on R Programming Language
 
+##### R Import of Multiple Files and Data Manipulation
+```R
+Input Files
+(Reserves Example 1):
+111111,5100001,10000
+111111,5100002,5000
+222222,5100003,10000
+333333,5100004,10000
+(QS file example):
+111111,0.8
+222222,0.5
+
+# Load a CSV file that doesn't have headers
+data <- read.csv("Reserves Example 1.csv", header=FALSE)
+#name columns
+names(data) <- c("Policy", "ClaimID","GrossRx")
+#Load Splits
+QSfile <- read.csv("QS file example.csv", header=FALSE)
+#Name Columns
+names(QSfile) <- c("Policy", "QS")
+
+#add Split % to Rx file
+library(plyr)
+library(dplyr)
+plyr1 <- join(data, QSfile, by = "Policy")
+#add assumed Rx
+plyr1 %>% mutate(Assumed=QS*GrossRx) %>% mutate(NotAssumed=(1-QS)*GrossRx)
+
+Output:
+Policy ClaimID GrossRx  QS Assumed NotAssumed
+1 111111 5100001   10000 0.8    8000       2000
+2 111111 5100002    5000 0.8    4000       1000
+3 222222 5100003   10000 0.5    5000       5000
+4 333333 5100004   10000  NA      NA         NA
+```
 ##### Basic File Commands
 Read or write csv  
 ```R
