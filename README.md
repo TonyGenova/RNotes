@@ -1,47 +1,29 @@
 ## RNotes
 #### Notes on R Programming Language
 
-##### R Import of Multiple Files and Data Manipulation
-```R
-Input Files
-(Reserves Example 1):
-111111,5100001,10000
-111111,5100002,5000
-222222,5100003,10000
-333333,5100004,10000
-(QS file example):
-111111,0.8
-222222,0.5
+##### Basic Keyboard Commands
+Ctrl + L : Clear Console  
+Ctrl + Shift  + Enter : Execute script (Also Source button)  
+Ctrl + Enter : Execute next piece of code  
 
-# Load a CSV file that doesn't have headers
-data <- read.csv("Reserves Example 1.csv", header=FALSE)
-#name columns
-names(data) <- c("Policy", "ClaimID","GrossRx")
-#Load Splits
-QSfile <- read.csv("QS file example.csv", header=FALSE)
-#Name Columns
-names(QSfile) <- c("Policy", "QS")
+##### Online Resources  
+ - #Rstats hashtag on Twitter
+ - rseek.org search engine
 
-#add Split % to Rx file
-library(plyr)
-library(dplyr)
-plyr1 <- join(data, QSfile, by = "Policy")
-#add assumed Rx
-plyr1 %>% mutate(Assumed=QS*GrossRx) %>% mutate(NotAssumed=(1-QS)*GrossRx)
-
-Output:
-Policy ClaimID GrossRx  QS Assumed NotAssumed
-1 111111 5100001   10000 0.8    8000       2000
-2 111111 5100002    5000 0.8    4000       1000
-3 222222 5100003   10000 0.5    5000       5000
-4 333333 5100004   10000  NA      NA         NA
-```
 ##### Basic File Commands
 Read or write csv  
 ```R
 DataName <- read.csv("FileName.csv")
 write.csv(DataName, file="FileName.csv")
+
+#using tidyverse library, sspecifying file has no headers
+data <- read_csv("file example 1.csv", col_names = FALSE)
+#name columns
+names(data) <- c("name1", "name2","name3")
+
 ```
+
+
 Read from Internet URL  
 ```R
 Data <- url("http://www.webpage.com", "r")
@@ -74,6 +56,9 @@ summary(VariableName) #provides summary information on the data contained within
 mean(VariableName)
 sd(VariableName)
 ```
+##### Other Topics to explore
+ - R Markdown
+
 ##### TAPPLY
 copied from http://www.r-bloggers.com/r-function-of-the-day-tapply/, with silght modifications for clarity  
 >The tapply function is useful when we need to break up a vector into groups defined by some classifying factor, compute a function on the subsets, and return the results in a convenient form. You can even specify multiple factors as the grouping variable, for example treatment and sex, or team and handedness.
@@ -96,7 +81,8 @@ sort(tapply(baseball.example$batting.average, baseball.example$team, max))
 ```
 
 ##### Misc Tricks
-is.na(DF$Variable) can be applied to a Logical to get a count of NAs, or !is.na to get a count of not NAs.  Taking the mean of this will get a proportion, with TRUE = 1 and FALSE = 0.
+is.na(DF$Variable) can be applied to a Logical to get a count of NAs, or !is.na to get a count of not NAs.  Taking the mean of this will get a proportion, with TRUE = 1 and FALSE = 0.  
+Use all.equal(x,y) instead of == for better decimal precision at hundreths decimal point
 
 #####Regression  
 To perform a regression calculation:  
