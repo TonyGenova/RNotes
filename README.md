@@ -23,6 +23,97 @@ names(data) <- c("name1", "name2","name3")
 
 ```
 
+##### Subset
+Taking pieces of data, or eliminating pieces of data  
+```R
+# a basic subset
+NewSubset <- OriginalData %>% select(ColumnA, ColumnB, ColumnC, ColumnD)
+# remove lines with 0 in ColumnB 
+NewDataFrameName <- subset(DataFrameName, !(ColumnB == 0))
+#also set a dataframe to view the removed lines if necessary
+RemovedLinesDataFrame <- subset(DataFrameName, (ColumnB == 0))
+#add "NewColumn" column to existing DataFrame
+DataFrameName <- DataFrameName %>% mutate(NewColumn=substr(`ExistingColumn`,1,6))
+
+
+```
+##### Working with dates
+```R
+#Set a variable for Date, year, month
+VarDate <- as.Date("2020-03-31")
+VarDateYear <- as.numeric(format(VarDate,"%Y"))
+VarDateMonth <- as.numeric(format(VarDate,"%m"))
+```
+
+##### Working with DataFrames
+```R
+#change a text column to numeric
+DataFrame$ColumnName = as.numeric(as.character(DataFrame$ColumnName))
+#Basic Join
+Basic_Join <- left_join(LeftSideData, RightSideData, by = "ColumnName" )
+#join with a filter applied
+Filter_Join <- left_join(LeftSideData, RightSideData, by = "ColumnName" ) %>% filter(ColumnB == 1,ColumnC == 1)
+#Some code that helped me with an error once on text columns
+Basic_Join$ColumnName = iconv(Basic_Join$ColumnName, to="UTF-8")
+#convert NA values to 0
+DataFrame$ColumnName[is.na(DataFrame$ColumnName)] <- 0
+#updating dates to remove time stamp
+DataFrame <- mutate(DataFrame,DateColumn =as.Date(OrigDateColumn,"%m/%d/%Y"))
+#combine two dataframes with same structure
+TwoDataFrames <- bind_rows(FirstDF,SecondDF)
+#write to CSV
+write.csv(DataFrame,"DataFrame.csv", row.names = FALSE)
+#resort to get data in a specific order
+DataFrame <- DataFrame[order(DataFrame$Col1,DataFrame$Col2,DataFrame$Col3),]
+
+#group by and sums for data (pivot table like)
+SumsForData <- BasicData %>% 
+  group_by(Col1, Col2) %>% 
+  summarise_at(vars(NumberData1, NumberData2), funs(sum))
+
+#Code to calc month diff, used from
+#https://stackoverflow.com/questions/1995933/number-of-months-between-two-dates
+monnb <- function(d) { lt <- as.POSIXlt(as.Date(d, origin="1900-01-01")); lt$year*12 + lt$mon } 
+# compute a month difference as a difference between two monnb's
+mondf <- function(d1, d2) { monnb(d2) - monnb(d1) }
+#examples
+#mondf(as.Date("2008-01-01"), Sys.Date())
+#mondf("2020-02-28", "2020-03-31")
+#Add months since premium payment to DataFrame, VarDate is a global variable
+DataFrame <- mutate(DataFrame, MosDifference = mondf(DataFrame$ColDate,VarDate))
+     
+#Create a month counter with a Flag based on conditions
+DataTable <- mutate(DataTable, MonthsPlusPad = BasicCounter+1.5)
+DataTable <- mutate(DataTable, MonthCounter = pmax(0,MonthsPlusPad-MosDifference))
+#If a month is past the EP, 0, fully within the EP use 1, else a fraction
+DataTable = DataTable %>% mutate(
+  CheckMonth = case_when(
+    MonthCounter == 0 ~ 0,
+    MonthCounter > .99999999 ~ 1,
+    TRUE ~ MonthCounter
+  )
+)
+
+```  
+
+##### Data.Table 
+Used to do a more complicated join on three variables, with < and > conditions
+```R
+#convert a data frame to a data table
+setDT(DataFrameToDT) 
+#used this to convert some dates, but I believe this is lubridate
+DataTable$NeededDate <- mdy(DataTableDT$NeededDate)
+#code for a complex left join with < and > matching - note one date is being compared twice to check for being between a range
+testmerge2 <- RightJoinDT[LeftJoinDT, on = .(RightSideCol=LeftSideCol, RightSideDate <= LeftSideDate, RightSideDate2 > LeftSideDate,
+            .(ColumnA,ColumB,etc)]
+#rename a column
+testmerge2 <- testmerge2 %>% rename(NewName = OldName)
+
+
+
+
+```
+
 
 Read from Internet URL  
 ```R
