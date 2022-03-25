@@ -10,6 +10,15 @@ Ctrl + Enter : Execute next piece of code
  - #Rstats hashtag on Twitter
  - rseek.org search engine
 
+##### Code snippets I want to explore further
+read_tsv - tab delimited read in  
+coord_flip in ggplot, switches axes for view  
+arrange and arrange(desc) - sorts data  
+Select(-columns) - the minus sign removes only the named columns  
+Mutate(rank) - to add ranking, minus sign ranks in reserve order  
+select(first:last) selects a range of columns if they are consecutive  
+dataframe - groupby and count will allow counts of categories if there are countable items in your data  
+
 ##### Basic File Commands
 Read or write csv  
 ```R
