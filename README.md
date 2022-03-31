@@ -9,6 +9,7 @@ Ctrl + Enter : Execute next piece of code
 ##### Online Resources  
  - #Rstats hashtag on Twitter
  - rseek.org search engine
+ - https://community.rstudio.com/  
 
 ##### Code snippets I want to explore further
 read_tsv - tab delimited read in  
@@ -18,6 +19,24 @@ Select(-columns) - the minus sign removes only the named columns
 Mutate(rank) - to add ranking, minus sign ranks in reserve order  
 select(first:last) selects a range of columns if they are consecutive  
 dataframe - groupby and count will allow counts of categories if there are countable items in your data  
+
+##### Add a default date if date is NA
+ 
+```R
+library(tidyverse)
+library(lubridate)
+library(reprex)
+library(dplyr)
+
+df <- data.frame (item  = c("a", "b", "c", "d"),
+                  date = c(as.Date('2010-01-01'),as.Date('2015-01-01'),NA,NA))
+#first part adds date, second part formats date
+DB2 <- df %>% mutate(date = ifelse(is.na(date), as.Date('2020-01-01'), date)) %>%
+  mutate(date = as.Date(date, origin = "1970-01-01"))
+DB2
+
+```
+
 
 ##### Basic File Commands
 Read or write csv  
