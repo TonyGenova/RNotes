@@ -20,6 +20,41 @@ Mutate(rank) - to add ranking, minus sign ranks in reserve order
 select(first:last) selects a range of columns if they are consecutive  
 dataframe - groupby and count will allow counts of categories if there are countable items in your data  
 
+##### Update a code based on a date lookup
+ 
+```R
+
+library(tidyverse)
+library(lubridate)
+library(reprex)
+library(fuzzyjoin)
+
+#test code for updating based on date range
+#these are override codes with date ranges
+df <- data.frame (item_override  = c("a", "b", "c", "d"),
+                  Override_Code = c(6,7,6,6),
+                  Start_Date = c(as.Date('1950-01-01'),as.Date('2015-01-01'),as.Date('2018-01-01'),as.Date('2020-01-01')),
+                  End_Date = c(as.Date('2015-01-01'),as.Date('2099-01-01'),as.Date('2099-01-01'),as.Date('2099-01-01')))
+df
+
+#this the data to update if an override is found
+data_to_update <- data.frame (item  = c("a","a", "b","b", "c","c", "d","d"),
+                              Code = c(1,1,1,1,1,1,1,1),
+                              Date = c(as.Date('2014-04-25'),as.Date('2017-07-27'),as.Date('2011-08-17'),as.Date('2021-11-25'),
+                                       as.Date('2015-12-01'),as.Date('2020-03-01'),as.Date('2018-01-01'),as.Date('2020-01-01')))
+
+new_data <- fuzzy_left_join(data_to_update, df,
+                by = c(
+                "item" = "item_override", 
+                "Date" = "Start_Date", 
+                "Date" = "End_Date"
+                ),
+              match_fun = list(`==`, `>=`, `<=`)
+            ) %>% 
+        mutate(Code = ifelse(is.na(Override_Code),Code,Override_Code)) %>% 
+        select(item, Code, Date)
+```  
+
 ##### Add a default date if date is NA
  
 ```R
