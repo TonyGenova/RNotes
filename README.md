@@ -106,6 +106,9 @@ DataFrameName <- DataFrameName %>% mutate(NewColumn=substr(`ExistingColumn`,1,6)
 VarDate <- as.Date("2020-03-31")
 VarDateYear <- as.numeric(format(VarDate,"%Y"))
 VarDateMonth <- as.numeric(format(VarDate,"%m"))
+
+#change date format (if string?)  
+mutate (DATE = ymd(DATE))  
 ```
 
 ##### Working with DataFrames
