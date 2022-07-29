@@ -6,3 +6,6 @@
 ### Logical Operators  
 And &, Or | and Not !  
 Not operator example: !is.numeric(5), to check for numerics  
+Logicals can be applied to vectors for comparison  
+& will compare each element of vector, && entire vector  
+| will compare each element of vector, || entire vector  
