@@ -108,3 +108,17 @@ named_function <- function (args) {
    }
 ```
 Can use return statement to end function and return a value based on a condition  
+
+### Apply Functions (Chapter 4)  
+Lapply - apply a function to a whole list or vector, always returns a list  
+unlist(lapply(list, function) - returns a vector  
+lapply allows for arguments in functions  
+```R
+#basic usage: 
+lapply(list, function)  
+#to return a vector instead of a list
+unlist(lapply(list, function)
+#specify argument by name after function
+lapply(list, function, argument=x) 
+```
+
