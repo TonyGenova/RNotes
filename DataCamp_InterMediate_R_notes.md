@@ -98,3 +98,13 @@ for (char in chars) {
 # Print out rcount
 print(rcount)
 ```
+
+### Functions (Chapter 3)  
+```R
+#basic structure
+#can have default values in arguments
+named_function <- function (args) {
+    do work
+   }
+```
+Can use return statement to end function and return a value based on a condition  
