@@ -121,4 +121,19 @@ unlist(lapply(list, function)
 #specify argument by name after function
 lapply(list, function, argument=x) 
 ```
+Anonymous functions - can define functions inside the lapply call, ie don't have to name function first
+```R
+#instead of
+select_first <- function(x) {
+  x[1]
+}
+#can just use
+names <- lapply(split_low, function(x) {x[1]})
+
+```
+sapply - "simplify apply"  - simplifies the resulting list to an array  
+sapply seems to give more usable, workable output - tries to give an array back  
+vapply - can specify output format  
+
+### Useful Functions (Chapter 5)  
 
