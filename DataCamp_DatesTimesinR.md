@@ -14,3 +14,15 @@ sep_10_2009 <- c("September 10 2009", "2009-09-10", "10 Sep 2009", "09-10-2009")
 # Use anytime() to parse sep_10_2009
 anytime(sep_10_2009)
 ```
+### Chapter 2 - Lubridate  
+Lubridate assumes UTC, not local time  
+``` r
+#Lubridate is a bit more flexible with parsing
+ymd("2013-02-27")
+ymd("2013.02.27")
+ymd("2013 Feb 27th")
+#also can use dmy(), myd(), etc
+
+#can build a date from components in variables
+make_date(year, month, day)
+```
