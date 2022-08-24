@@ -44,3 +44,39 @@ r_3_4_1 - floor_date(r_3_4_1, unit = "day")
 ```
 
 ### Chapter 3 - Taking Differences of dates and times  
+```r
+#difftime() allows for granular control of time difference calculations
+difftime(date1, date2, units="xxx") # units can be secs, mins, hours, days, weeks
+```
+periods v durations  
+periods - generally conform to human understanding of intervals  
+durations - an exact count up or down, prefaced by a "d" in r    
+```r
+# month sequencing exercise
+# A sequence of 1 to 12 periods of 1 month
+month_seq <- 1:12 * months(1)
+# Add 1 to 12 months to jan_31
+jan_31 + month_seq  #doesn't quite work because not all months have 31 days
+# Replace + with %m+%
+jan_31 %m+% month_seq #iterates months forward in time
+# Replace + with %m-%
+jan_31 %m-% month_seq #iterates months backward in time
+```  
+Intervals  - can be used to test within a period or to calculate interval between periods  
+```r
+#intervals creates using
+datetime1 %--% datetime2 #or
+interval(datetime1, datetime2)
+#once interval variable established
+int_start(interval)
+int_end(interval)
+int_length(interval)
+#to check if date within interval
+datevariable %within% intervalvariable
+#returns FALSE or TRUE
+
+#to comapre two intervals for overlap
+int_overlaps(interval1, interval2)
+#returns FALSE or TRUE
+
+```
