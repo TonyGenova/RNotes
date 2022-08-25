@@ -79,4 +79,46 @@ datevariable %within% intervalvariable
 int_overlaps(interval1, interval2)
 #returns FALSE or TRUE
 
+#interesting code from problem on intervals
+# Print halleys, a list of halleys comet appearances
+halleys
+# New column for interval from start to end date
+halleys <- halleys %>% 
+  mutate(visible = start_date %--% end_date)
+# The visitation of 1066
+halleys_1066 <- halleys[14, ] 
+# Monarchs in power on perihelion date
+monarchs %>% 
+  filter(halleys_1066$perihelion_date %within% reign) %>%
+  select(name, from, to, dominion)
+# Monarchs whose reign overlaps visible time
+monarchs %>% 
+  filter(int_overlaps(halleys_1066$visible, reign)) %>%
+  select(name, from, to, dominion)
+
+```
+### Chapter 4 - Problems/additional comments   
+Can use force_tz()  to change time zones    
+Can use with_tz() to view time in another time zone  
+as.hms() can be used to view just a time with no associated date (in hms package)  
+parse_date_time() is very flexible for parsing dates, but can be slow because of the flexibility  
+If have a defined date format, quicker options exist:  
+fastPOSIXct(), fast_strptime()  
+stamp() can be used to set a date format you want to apply to other dates for viewing  
+```r
+#exercise to compare pasring dates with a benchmark
+library(microbenchmark)
+library(fasttime)
+
+# Examine structure of dates
+str(dates)
+
+# Use fastPOSIXct() to parse dates
+fastPOSIXct(dates) %>% str()
+
+# Compare speed of fastPOSIXct() to ymd_hms()
+microbenchmark(
+  ymd_hms = ymd_hms(dates),
+  fasttime = fastPOSIXct(dates),
+  times = 20)
 ```
