@@ -29,3 +29,9 @@ can add a color based on a categorical variable and size based on a numerical va
 ggplot(data, aes(x = [xaxisvariable], y = [yaxisvariable], color = [zvariable], size = [zzvariable])) +
   geom_point() + scale_x_log10()
 ```
+Faceting allows you to divide plots into smaller subplots  
+```r
+#add facet_wrap() to break into smaller subplot/categories  
+ggplot(data, aes(x = [xaxisvariable], y = [yaxisvariable], color = [zvariable], size = [zzvariable])) +
+  geom_point() + scale_x_log10() + facet_wrap(~ variable)
+```
