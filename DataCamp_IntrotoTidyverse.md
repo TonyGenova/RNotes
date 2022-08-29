@@ -35,7 +35,7 @@ Faceting allows you to divide plots into smaller subplots
 ggplot(data, aes(x = [xaxisvariable], y = [yaxisvariable], color = [zvariable], size = [zzvariable])) +
   geom_point() + scale_x_log10() + facet_wrap(~ variable)
 ```
-### Chapter 2 Grouping and Summarizing  
+### Chapter 3 Grouping and Summarizing  
 can use mean, sum, median, min, max in summarizing
 ```r
 #example summarize for a single output
@@ -61,4 +61,8 @@ ggplot(by_year, aes(x = year, y = totalPop)) + geom_point() + expand_limits(y = 
 by_year_continent <- gapminder %>% group_by(year, continent) %>% 
   summarize(totalPop = sum(pop), meanLifeExp = mean(lifeExp))
 ggplot(by_year_continent, aes(x = year, y = totalPop, color = continent)) + geom_point() + expand_limits(y = 0) 
+```
+### Chapter 4 Types of Visualizations  
+Examining Line Plots, Bar Plots, Histograms, Boxplots  
+```r
 ```
