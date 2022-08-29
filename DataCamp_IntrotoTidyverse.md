@@ -35,3 +35,30 @@ Faceting allows you to divide plots into smaller subplots
 ggplot(data, aes(x = [xaxisvariable], y = [yaxisvariable], color = [zvariable], size = [zzvariable])) +
   geom_point() + scale_x_log10() + facet_wrap(~ variable)
 ```
+### Chapter 2 Grouping and Summarizing  
+can use mean, sum, median, min, max in summarizing
+```r
+#example summarize for a single output
+dataset %>% summarize(meandatavariable = mean(datavariable))
+#can combine with filter
+dataset %>% filter(year == 2020) %>% summarize(meandatavariable = mean(datavariable), totalYvariable = sum(Yvariable))
+```
+group_by() will allow summarizing via groups  
+```r
+dataset %>%
+  group_by(variableZ) %>%
+    summarize(meanVariableX = mean(variableX),
+      totalvariableY = sum(variableY))
+# can group_by(variableZ, VariableA), etc if have more than one group by - use same parenthetical
+```
+can combine, filter, group_by, and summarize 
+can also save summary to a variable and then send to ggplot for plotting
+```r
+by_year <- gapminder %>% group_by(year) %>% 
+  summarize(totalPop = sum(pop), meanLifeExp = mean(lifeExp))
+ggplot(by_year, aes(x = year, y = totalPop)) + geom_point() + expand_limits(y = 0) 
+#expand limits specifies where y will start
+by_year_continent <- gapminder %>% group_by(year, continent) %>% 
+  summarize(totalPop = sum(pop), meanLifeExp = mean(lifeExp))
+ggplot(by_year_continent, aes(x = year, y = totalPop, color = continent)) + geom_point() + expand_limits(y = 0) 
+```
