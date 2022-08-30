@@ -65,4 +65,26 @@ ggplot(by_year_continent, aes(x = year, y = totalPop, color = continent)) + geom
 ### Chapter 4 Types of Visualizations  
 Examining Line Plots, Bar Plots, Histograms, Boxplots  
 ```r
+#to make line plot, specify geom_line()
+ggplot(by_year_continent, aes(x = year, y = totalPop, color = continent)) + geom_line() + expand_limits(y = 0) 
+
+#bar plot can be used to compare categories - geom_col() - x is categorical variable, y is measurement
+# Summarize the median gdpPercap by continent in 1952
+by_continent <- gapminder %>% filter(year == 1952) %>%
+    group_by(continent) %>% summarize(medianGdpPercap = median(gdpPercap))
+# Create a bar plot showing medianGdp by continent
+ggplot(by_continent, aes(x = continent, y = medianGdpPercap)) + 
+  geom_col()
+
+#Histogram - geom_histogram() - only has x axis
+#can set binwidth: geom_historgram(binwidth = n)
+#can also use scale_x_log10() for presentation
+ggplot(gapminder_1952, aes(x = pop_by_mil)) + geom_histogram(bins = 50)
+ggplot(gapminder_1952, aes(x = pop)) + geom_histogram()+ scale_x_log10()
+
+#Box plots - geom_boxplot(x = category, y = values compared)
+ggplot(gapminder_1952, aes(x = continent, y = gdpPercap)) + geom_boxplot() + scale_y_log10()
+ggplot(gapminder_1952, aes(x = continent, y = gdpPercap)) +
+  geom_boxplot() + scale_y_log10() + ggtitle("Comparing GDP per capita across continents")
+
 ```
