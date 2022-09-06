@@ -21,3 +21,30 @@ count() will aggregte data based on a condition, can add sort = TRUE to automati
 #usage example, this will total population by state in counties data 
 counties %>% count(state, wt = population, sort = TRUE)
 ```
+group_by and summarize
+```r
+#code examples
+counties_selected %>%
+  summarize(min_population = min(population), max_unemployment = max(unemployment), average_income = mean(income))
+counties_selected %>%
+  group_by(state) %>%
+  summarize(total_area = sum(land_area),
+            total_population = sum(population)) %>%
+  # Add a density column
+  mutate(density = total_population/total_area) %>%
+  # Sort by density in descending order
+  arrange(desc(density))
+```
+top_n - after a group_by, can take the extreme observations from group  
+```r
+#example usage
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Extract the most populated row for each state
+  top_n(1, total_pop) %>%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup() %>%  #not really sure what ungroup is doing here??
+  count(metro)
+```
