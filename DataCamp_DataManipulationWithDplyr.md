@@ -48,3 +48,25 @@ counties_selected %>%
   ungroup() %>%  #not really sure what ungroup is doing here??
   count(metro)
 ```
+### Chapter 3 - Selecting and Transforming data  
+```r
+#can select columns by name or with a contains string or with a starts_with or ends_with string
+#last_col() is also an option
+#can us -column to remove a column
+select(state, county,contains("work"), starts_with("income"))
+
+#example from exercises
+# Glimpse the counties table
+glimpse(counties)
+counties %>%
+  # Select state, county, population, and industry-related columns
+  #note colon allows to select a range of columns using the names of first and last
+  select(state, county, population, professional:production) %>%
+  # Arrange service in descending order 
+  arrange(desc(service))
+ 
+#can rename a column
+rename(new_name = old_name)
+#also can rename in a select
+select(column1, column2, new_name = old_name)
+```
