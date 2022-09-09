@@ -69,4 +69,7 @@ counties %>%
 rename(new_name = old_name)
 #also can rename in a select
 select(column1, column2, new_name = old_name)
+
+#transmute combines select and mutate
+counties %>% transmute(state, county, fraction_men = men/population)
 ```
