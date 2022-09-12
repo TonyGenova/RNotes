@@ -73,3 +73,55 @@ select(column1, column2, new_name = old_name)
 #transmute combines select and mutate
 counties %>% transmute(state, county, fraction_men = men/population)
 ```
+### Chapter 4 - Case Study  
+```r
+#can have multiple filter conditions using %in%
+babynames_multiple <- babynames %>%
+  filter(name %in% c("Amy", "Christopher")
+  
+babynames %>%
+# Find the most common name in each year
+  group_by(year) %>%
+    top_n(1,number)
+    
+selected_names <- babynames %>%
+  # Filter for the names Steven, Thomas, and Matthew 
+  filter(name %in% c("Steven", "Thomas", "Matthew"))
+# Plot the names using a different color for each name
+ggplot(selected_names, aes(x = year, y = number, color = name)) +
+  geom_line()
+  
+#grouped mutate combines group and mutate
+#can be used to add a total to multiple lines of original data
+babynames %>%
+  group_by(year) %>%
+  mutate(year_total = sum(number)) %>%
+  ungroup() %>%
+  mutate(fraction = number/year_total)
+  
+# Calculate the fraction of people born each year with the same name
+babynames %>%
+  group_by(year) %>%
+  mutate(year_total = sum(number)) %>%
+  ungroup() %>%
+  mutate(fraction = number / year_total) %>%
+  # Find the year each name is most common
+  group_by(name) %>%
+  top_n(1, fraction)
+  
+babynames %>%
+  # Add columns name_total and name_max for each name
+  group_by(name) %>%
+  mutate(name_total = sum(number),
+         name_max = max(number)) %>%
+  # Ungroup the table 
+  ungroup() %>%
+  # Add the fraction_max column containing the number by the name maximum 
+  mutate(fraction_max = number/name_max)
+```
+lag(), when applied to a vector, iterates each item by 1  
+  so item 1 becomes item 2, etc  
+  can them subtract from original vector to get changes  
+```r
+
+```
