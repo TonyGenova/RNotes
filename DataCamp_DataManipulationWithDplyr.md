@@ -123,5 +123,19 @@ lag(), when applied to a vector, iterates each item by 1
   so item 1 becomes item 2, etc  
   can them subtract from original vector to get changes  
 ```r
-
+babynames_fraction %>%
+  # Arrange the data in order of name, then year 
+  arrange(name, year) %>%
+  # Group the data by name
+  group_by(name) %>%
+  # Add a ratio column that contains the ratio of fraction between each year 
+  mutate(ratio = fraction/lag(fraction))
+  
+babynames_ratios_filtered %>%
+  # Extract the largest ratio from each name 
+  top_n(1, ratio) %>%
+  # Sort the ratio column in descending order 
+  arrange(desc(ratio)) %>%
+  # Filter for fractions greater than or equal to 0.001
+  filter(fraction >= 0.001)
 ```
