@@ -81,3 +81,8 @@ themes %>%
   filter(is.na(name_child))
 
 ```
+### Chapter 3 - Full joins   
+Full joins keeps all observations in both tables, whether or not they match  
+```R
+
+```
