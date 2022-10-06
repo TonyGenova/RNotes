@@ -81,6 +81,8 @@ write.csv(DataName, file="FileName.csv")
 
 #using tidyverse library, sspecifying file has no headers
 data <- read_csv("file example 1.csv", col_names = FALSE)
+#another method - base R?
+data <- read.csv("filename", header = FALSE)
 #name columns
 names(data) <- c("name1", "name2","name3")
 
