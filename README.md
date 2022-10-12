@@ -117,6 +117,8 @@ mutate (DATE = ymd(DATE))
 ```R
 #change a text column to numeric
 DataFrame$ColumnName = as.numeric(as.character(DataFrame$ColumnName))
+#take a specific row from a dataframe
+new_df <- df[1,]
 #Basic Join
 Basic_Join <- left_join(LeftSideData, RightSideData, by = "ColumnName" )
 #join with a filter applied
