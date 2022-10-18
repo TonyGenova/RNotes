@@ -119,6 +119,14 @@ mutate (DATE = ymd(DATE))
 DataFrame$ColumnName = as.numeric(as.character(DataFrame$ColumnName))
 #take a specific row from a dataframe
 new_df <- df[1,]
+#can reference a certain row for a calculation (like a first row to calculate a difference)
+dataframe_name[1,"variable_name"]
+#so to calculate a running difference
+variable_name - dataframe_name[1,"variable_name"]
+#can calculate running cumulative numbers
+cumprod(variable_name)
+cumsum(variable_name)
+
 #Basic Join
 Basic_Join <- left_join(LeftSideData, RightSideData, by = "ColumnName" )
 #join with a filter applied
