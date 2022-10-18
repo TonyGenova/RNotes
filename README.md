@@ -117,6 +117,16 @@ mutate (DATE = ymd(DATE))
 ```R
 #change a text column to numeric
 DataFrame$ColumnName = as.numeric(as.character(DataFrame$ColumnName))
+
+#create a vector as a counter, and another that keeps the first row as a "0" month, so count starts on row 2
+#initilize calculations_de dataframe
+projection_month <- 0:1451
+#month 1 is same as month 0 for attained age, active cell it the row we are looking at
+attained_age_months <- c((active_cell$AGE_1*12),(active_cell$AGE_1*12):((active_cell$AGE_1*12)+1450))
+combined_df <- data.frame(projection_month, attained_age_months)
+#calculate age in years
+combined_df <- combined_df %>% mutate(attained_age_years = floor(attained_age_months/12))
+
 #take a specific row from a dataframe
 new_df <- df[1,]
 #can reference a certain row for a calculation (like a first row to calculate a difference)
