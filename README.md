@@ -126,7 +126,8 @@ variable_name - dataframe_name[1,"variable_name"]
 #can calculate running cumulative numbers
 cumprod(variable_name)
 cumsum(variable_name)
-
+#can put an if_else in a dataframe column calculation
+mutate(new_column = if_else(other_column==1,0,other_column*.75))
 #Basic Join
 Basic_Join <- left_join(LeftSideData, RightSideData, by = "ColumnName" )
 #join with a filter applied
