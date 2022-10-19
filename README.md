@@ -127,6 +127,8 @@ combined_df <- data.frame(projection_month, attained_age_months)
 #calculate age in years
 combined_df <- combined_df %>% mutate(attained_age_years = floor(attained_age_months/12))
 
+cumprod() and rev(cumprod()) do some nice cumulative calculations
+
 #take a specific row from a dataframe
 new_df <- df[1,]
 #can reference a certain row for a calculation (like a first row to calculate a difference)
