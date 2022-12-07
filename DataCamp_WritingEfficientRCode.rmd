@@ -1,0 +1,7 @@
+### Chapter 1 - The Art of Benchmarking  
+R is more efficient with coding time, but does take longer to run when compared to a language like C  
+
+system.time() - elapsed time is the useful metric, measuring total time  
+```r
+
+```
