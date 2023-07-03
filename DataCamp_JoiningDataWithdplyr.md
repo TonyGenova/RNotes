@@ -179,6 +179,14 @@ ggplot(colors_joined, aes(x = name, y = difference, fill = name)) +
   scale_fill_manual(values = color_palette, guide = "none") +
   labs(y = "Difference: Batman - Star Wars")
 ```
+### Chapter 4 - Case Study
+```R
+# Join in the questions and tags table, replace the NAs in tag_name
+questions %>%
+  left_join(question_tags, by = c("id" = "question_id")) %>%
+  left_join(tags, by = c("tag_id" = "id")) %>%
+  replace_na(list(tag_name = "only-r"))
 
+```
 
 
